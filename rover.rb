@@ -1,10 +1,14 @@
 require_relative 'direction'
 
 class MarsRover
-    def initialize(x, y, facing)
+    def initialize(x, y, facing, grid_m, grid_n)
         @direction = Direction.new(facing)
         @x = x
         @y = y
+        @lost = false
+        @grid_m = grid_m
+        @grid_n = grid_n
+        @last_known_coordinate = self.coordinate
     end
 
     def rotate_left
@@ -28,10 +32,18 @@ class MarsRover
         end
     end
 
+    def lost?
+        @lost = true if @x > @grid_m or @x < 0 or @y > @grid_n or @y < 0
+        @lost
+    end
+
     def coordinate
-        {
-            x: @x,
-            y: @y
-        }
+        unless self.lost?
+            @last_known_coordinate = {
+                x: @x,
+                y: @y
+            }
+        end
+        @last_known_coordinate
     end
 end
