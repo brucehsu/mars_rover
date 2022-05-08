@@ -25,18 +25,19 @@ class MarsRover
         @direction.rotate_clockwise(offset) unless self.lost?
     end
 
-    def forward
+    def forward(offset = 1)
         unless self.lost?
             case @direction.facing
             when Direction::NORTH
-                @y += 1
+                @y += offset
             when Direction::SOUTH
-                @y -= 1
+                @y -= offset
             when Direction::EAST
-                @x += 1
+                @x += offset
             when Direction::WEST
-                @x -= 1
+                @x -= offset
             end
+            self.lost? # update lost status
         end
     end
 
@@ -46,6 +47,21 @@ class MarsRover
             @last_known_coordinate = {
                 x: @x,
                 y: @y
+            }
+        else
+            x, y = @x, @y
+            if x < 0
+                x = 0
+            elsif y < 0
+                y = 0
+            elsif x > @grid_m
+                x = @grid_m
+            elsif y > @grid_n
+                y = @grid_n
+            end
+            @last_known_coordinate = {
+                x: x,
+                y: y
             }
         end
         @lost
