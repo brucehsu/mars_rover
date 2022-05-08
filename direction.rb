@@ -9,22 +9,24 @@ class Direction
         @facing = facing
     end
 
-    def rotate_left
-        if @facing - 1 < 0
-            @facing = Direction::WEST
-        else
-            @facing -= 1
-        end
+    def rotate_left(offset = 1)
+        @facing -= offset
+        @facing += 4 if @facing < 0
         self
     end
 
-    def rotate_right
-        if @facing + 1 > Direction::WEST
-            @facing = Direction::NORTH
-        else
-            @facing += 1
-        end
+    def rotate_right(offset = 1)
+        @facing = (@facing + offset) % 4
         self
+    end
+
+    def rotate_clockwise(offset)
+        actual_offset_abs = offset.abs % 4
+        if offset > 0
+            self.rotate_right(actual_offset_abs)
+        elsif offset < 0
+            self.rotate_left(actual_offset_abs)
+        end
     end
 
     def to_s

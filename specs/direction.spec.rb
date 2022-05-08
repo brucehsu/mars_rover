@@ -26,5 +26,35 @@ RSpec.describe Direction do
       direction.rotate_right
       expect(direction.facing).to eq(Direction::NORTH)
     end
+
+    context "rorate_clockwise with offset" do
+      it "rotates from NORTH to NORTH when given offset 8" do
+        direction = Direction.new(Direction::NORTH)
+        expect(direction.facing).to eq(Direction::NORTH)
+        direction.rotate_clockwise(8)
+        expect(direction.facing).to eq(Direction::NORTH)
+      end
+
+      it "rotates from NORTH to SOUTH when given offset 6" do
+        direction = Direction.new(Direction::NORTH)
+        expect(direction.facing).to eq(Direction::NORTH)
+        direction.rotate_clockwise(6)
+        expect(direction.facing).to eq(Direction::SOUTH)
+      end
+
+      it "rotates from NORTH to NORTH when given offset -8" do
+        direction = Direction.new(Direction::NORTH)
+        expect(direction.facing).to eq(Direction::NORTH)
+        direction.rotate_clockwise(-8)
+        expect(direction.facing).to eq(Direction::NORTH)
+      end
+
+      it "rotates from NORTH to SOUTH when given offset -6" do
+        direction = Direction.new(Direction::NORTH)
+        expect(direction.facing).to eq(Direction::NORTH)
+        direction.rotate_clockwise(-6)
+        expect(direction.facing).to eq(Direction::SOUTH)
+      end
+    end
   end
   
