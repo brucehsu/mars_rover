@@ -21,6 +21,10 @@ class MarsRover
         @direction.rotate_right unless self.lost?
     end
 
+    def rotate_clockwise(offset)
+        @direction.rotate_clockwise(offset) unless self.lost?
+    end
+
     def forward
         unless self.lost?
             case @direction.facing
