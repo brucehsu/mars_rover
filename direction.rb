@@ -26,4 +26,17 @@ class Direction
         end
         self
     end
+
+    def to_s
+        case @facing
+        when Direction::NORTH
+            "N"
+        when Direction::EAST
+            "E"
+        when Direction::SOUTH
+            "S"
+        when Direction::WEST
+            "W"
+        end
+    end
 end
